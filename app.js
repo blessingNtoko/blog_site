@@ -27,6 +27,14 @@ app.get('/', (req, res) => {
     res.render('home', {homeStarterContent: homeStartingContent});
 });
 
+app.get('/about', (req, res) => {
+    res.render('about', {aboutStarterContent: aboutContent});
+});
+
+app.get('/contact', (req, res) => {
+    res.render('contact', {contactStarterContent: contactContent});
+});
+
 app.listen(process.env.PORT || port, () => {
     console.log(`Server running on port ${port}`);
 });
