@@ -13,6 +13,7 @@ adipisci reprehenderit, sunt quia quam ut eius corrupti libero eligendi blanditi
 aspernatur non tempore ducimus laudantium vitae dolor rem, temporibus distinctio id? Ex, corporis.`;
 
 const app = express();
+const posts = [];
 
 app.set('view engine', 'ejs');
 
@@ -24,6 +25,7 @@ app.use(express.static('public'));
 
 
 app.get('/', (req, res) => {
+    console.log('Posts ->', posts);
     res.render('home', {homeStarterContent: homeStartingContent});
 });
 
@@ -44,7 +46,10 @@ app.get('/compose', (req, res) => {
 
 
 app.post('/compose', (req, res) => {
-    console.log('Compose body ->', req.body.composedText);
+    const post = req.body;
+    console.log('Post ->', post);
+    posts.push(post);
+    res.redirect('/');
 });
 
 app.listen(process.env.PORT || port, () => {
