@@ -35,6 +35,14 @@ app.get('/contact', (req, res) => {
     res.render('contact', {contactStarterContent: contactContent});
 });
 
+app.get('/compose', (req, res) => {
+    res.render('compose');
+});
+
+app.post('compose', (req, res) => {
+    console.log('Compose body ->', req.body.composedText);
+})
+
 app.listen(process.env.PORT || port, () => {
     console.log(`Server running on port ${port}`);
 });
