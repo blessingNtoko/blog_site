@@ -19,6 +19,10 @@ app.set('view engine', 'ejs');
 app.use(bodyParse.urlencoded({extended: true}));
 app.use(express.static('public'));
 
+app.get('/', (req, res) => {
+    res.render('home');
+})
+
 app.listen(process.env.PORT || port, () => {
     console.log(`Server running on port ${port}`);
 });
