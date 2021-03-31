@@ -43,6 +43,10 @@ app.get('/compose', (req, res) => {
     res.render('compose');
 });
 
+app.get('/posts/:postTitle', (req, res) => {
+    console.log(req.params);
+});
+
 
 // ============================================================================ Server Logic - Posts =========================================================================
 
