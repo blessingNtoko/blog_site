@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParse = require('body-parser');
 const ejs = require('ejs');
 const port = 4177;
+const lodash = require('lodash');
 
 const homeStartingContent = `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam omnis rem, quod consequatur iusto itaque rerum
 doloremque illo, nam officia ipsam placeat in ad, quaerat nobis numquam porro excepturi deleniti amet nostrum.`;
@@ -44,10 +45,10 @@ app.get('/compose', (req, res) => {
 });
 
 app.get('/posts/:postTitle', (req, res) => {
-    console.log('Params ->', req.params);
+    const paramsPostTitle = req.params.postTitle;
 
     posts.forEach(post => {
-        if (post.postTitle === req.params.postTitle) {
+        if (post.postTitle.toLowerCase() === lodash.lowerCase(paramsPostTitle)) {
             console.log('Match Found!');
         };
     });
