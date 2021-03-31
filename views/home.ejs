@@ -7,7 +7,7 @@
 <% posts.forEach(post => { %>
 <div class="post">
     <h1><%= post.postTitle %></h1>
-    <p id="postBody"><%= post.postBody %></p>
+    <p id="postBody"><%= post.postBody.substring(0, 120) + " ..." %></p>
 </div>
 <% }) %>
 

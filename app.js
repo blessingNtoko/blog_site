@@ -45,11 +45,14 @@ app.get('/compose', (req, res) => {
 });
 
 app.get('/posts/:postTitle', (req, res) => {
-    const paramsPostTitle = req.params.postTitle;
+    const paramsPostTitle = lodash.lowerCase(req.params.postTitle);
 
     posts.forEach(post => {
-        if (post.postTitle.toLowerCase() === lodash.lowerCase(paramsPostTitle)) {
-            console.log('Match Found!');
+        if (lodash.lowerCase(post.postTitle) === paramsPostTitle) {
+            res.render('post', {
+                title: post.postTitle,
+                content: post.postBody
+            });
         };
     });
 
