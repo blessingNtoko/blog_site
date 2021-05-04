@@ -5,7 +5,7 @@ const lodash = require('lodash');
 
 const app = express();
 const port = process.env.PORT || 4177;
-const posts = [];
+// const posts = [];
 
 
 app.use(bodyParse.urlencoded({
@@ -51,10 +51,14 @@ const Post = mongoose.model('Post', blogPostSchema);
 
 
 app.get('/', (req, res) => {
-    res.render('home', {
-        homeStarterContent: homeStartingContent,
-        posts: posts
+
+    Post.find({}, (err, results) => {
+        res.render('home', {
+            homeStarterContent: homeStartingContent,
+            posts: results
+        });
     });
+
 });
 
 app.get('/about', (req, res) => {
@@ -92,9 +96,16 @@ app.get('/posts/:postTitle', (req, res) => {
 
 
 app.post('/compose', (req, res) => {
-    const post = req.body;
+    const postTitle = req.body.postTitle;
+    const postContent = req.body.postBody;
 
-    posts.push(post);
+    let blogPost = new Post({
+        title: postTitle,
+        content: postContent
+    });
+
+    blogPost.save();
+    console.log('Added post successfully');
     res.redirect('/');
 });
 
