@@ -53,6 +53,7 @@ const Post = mongoose.model('Post', blogPostSchema);
 app.get('/', (req, res) => {
 
     Post.find({}, (err, results) => {
+        console.log('Results ->', results);
         res.render('home', {
             homeStarterContent: homeStartingContent,
             posts: results
@@ -77,17 +78,21 @@ app.get('/compose', (req, res) => {
     res.render('compose');
 });
 
-app.get('/posts/:postTitle', (req, res) => {
-    const paramsPostTitle = lodash.lowerCase(req.params.postTitle);
+app.get('/posts/:post_id', (req, res) => {
+    const postID = req.params.post_id;
 
-    posts.forEach(post => {
-        if (lodash.lowerCase(post.postTitle) === paramsPostTitle) {
+    Post.findById(postID, (err, results) => {
+        if (err) {
+            console.log('Error when attempting to find document by ID');
+        } else {
+
             res.render('post', {
-                title: post.postTitle,
-                content: post.postBody
+                title: results.title,
+                content: results.content
             });
-        };
+        }
     });
+
 
 });
 
