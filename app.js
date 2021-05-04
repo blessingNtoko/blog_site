@@ -53,7 +53,6 @@ const Post = mongoose.model('Post', blogPostSchema);
 app.get('/', (req, res) => {
 
     Post.find({}, (err, results) => {
-        console.log('Results ->', results);
         res.render('home', {
             homeStarterContent: homeStartingContent,
             posts: results
