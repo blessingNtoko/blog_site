@@ -97,16 +97,21 @@ app.get('/posts/:postTitle', (req, res) => {
 
 app.post('/compose', (req, res) => {
     const postTitle = req.body.postTitle;
-    const postContent = req.body.postBody;
+    const postBody = req.body.postBody;
 
     let blogPost = new Post({
         title: postTitle,
-        content: postContent
+        content: postBody
     });
 
-    blogPost.save();
-    console.log('Added post successfully');
-    res.redirect('/');
+    blogPost.save(err => {
+        if (err) {
+            console.log('Error when saving ->', err);
+        } else {
+            console.log('Added post successfully');
+            res.redirect('/');
+        }
+    });
 });
 
 app.listen(port, () => {
